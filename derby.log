@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon Feb 08 12:55:13 MSK 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0152-c04e-7443-0000088bf2d0 
+on database directory memory:D:\Elf\workspace\bestinwholeworld\testdb with class loader java.net.URLClassLoader@65590a5 
+Loaded from file:/C:/Users/Elf/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_51-b16
+user.dir=D:\Elf\workspace\bestinwholeworld
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

@@ -1,0 +1,1 @@
+insert into user_of_game (id, name_to_display, email, password, user_name) values (default, '1', '2', '3', '4');

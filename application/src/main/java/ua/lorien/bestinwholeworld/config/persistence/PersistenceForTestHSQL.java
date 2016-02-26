@@ -1,0 +1,58 @@
+package ua.lorien.bestinwholeworld.config.persistence;
+
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+
+@Profile("test")
+@PropertySource("classpath:/db-test.properties")
+@Configuration
+public class PersistenceForTestHSQL {
+	  
+	@Value(value = "${spring.jpa.properties.hibernate.dialect}")
+	private String hibernateDialect;
+	
+    @Value("${spring.jpa.properties.hibernate.hbm2ddl.auto}")
+    private String hbm2ddlAuto;
+    
+    @Value("${spring.jpa.properties.hibernate.show_sql}")
+    private String showSql;
+    
+    @Bean
+	public DataSource dataSource() {
+		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.HSQL).addDefaultScripts().build();
+	}
+    
+    @Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		entityManagerFactoryBean.setDataSource(dataSource());
+		entityManagerFactoryBean.setPackagesToScan("ua.lorien.bestinwholeworld.model");
+		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+
+		Properties jpaProperties = new Properties();
+        jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, hibernateDialect);
+        jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, hbm2ddlAuto);
+        jpaProperties.put(org.hibernate.cfg.Environment.SHOW_SQL, showSql);
+        entityManagerFactoryBean.setJpaProperties(jpaProperties);
+        
+		return entityManagerFactoryBean;
+	}
+    
+    @Bean
+	public PlatformTransactionManager transactionManager() {
+		return new JpaTransactionManager();
+	}
+}

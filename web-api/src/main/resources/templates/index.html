@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Spring Framework Guru</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+	var prefix = '/api';
+
+	$('document').ready(function() {
+		$.ajax({
+			type : 'GET',
+			url : prefix + '/games',
+			dataType : 'json',
+			async : true,
+			success : function(result) {
+				console.log(result);
+				for( game of result){
+					$('.list').append('<li class="item">' + game.name + '</li>');
+				}
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.status + ' ' + jqXHR.responseText);
+			}
+		});
+	});
+
+</script>
+</head>
+<body>
+	<h1>Hello world!!!!!!!!!!!!!!!!!!!!!</h1>
+	<ul class="list"></ul>
+	
+	<table>
+		<thead>
+			<tr>
+				<th th:text="name">Name</th>
+				<th th:text="price">Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="prod : ${games}">
+				<td th:text="${prod.name}">Oranges</td>
+				<td th:text="${prod.devCompanyName}">ss</td>
+			</tr>
+		</tbody>
+		<button type="button" onclick="RestGet()">Список игр</button>
+	</table>
+	<h2>Fellow Spring Framework Gurus!!!</h2>
+</body>
+</html>

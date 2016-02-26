@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS user_of_game
+(id INT NOT NULL IDENTITY,
+user_name VARCHAR(80),
+name_to_display VARCHAR(30),
+email VARCHAR(30),
+password VARCHAR(255));
+
+CREATE TABLE IF NOT EXISTS game
+( id INT NOT NULL IDENTITY,
+name VARCHAR(200),
+dev_company_name VARCHAR(200),
+description VARCHAR(400));
+
+CREATE TABLE IF NOT EXISTS hiscore
+(id INT NOT NULL IDENTITY,
+ user_name VARCHAR(200),
+ game_id INT,
+ user_description VARCHAR(300),
+ score BIGINT,
+ FOREIGN KEY (game_id) REFERENCES game(id) ON DELETE CASCADE ON UPDATE CASCADE);
+
+CREATE TABLE IF NOT EXISTS comment
+(id INT NOT NULL IDENTITY,
+text VARCHAR(500),
+user_id INT,
+game_id INT,
+date_of_comment DATE,
+FOREIGN KEY (user_id) REFERENCES user_of_game(id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (game_id) REFERENCES game(id) ON DELETE CASCADE ON UPDATE CASCADE);
