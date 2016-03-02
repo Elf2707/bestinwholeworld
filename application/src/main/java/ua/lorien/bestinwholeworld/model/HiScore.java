@@ -1,6 +1,8 @@
 package ua.lorien.bestinwholeworld.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +29,9 @@ public class HiScore implements Serializable {
 	
 	@Column(name = "user_description")
 	private String userDescription;
+	
+	@Column(name = "date_of_score")
+	private Date date;
 
 	public HiScore() {
 	}
@@ -35,6 +40,14 @@ public class HiScore implements Serializable {
 		this.score = score;
 		this.userName = userName;
 		this.userDescription = userDescription;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Long getScore() {
@@ -78,6 +91,7 @@ public class HiScore implements Serializable {
 		result = prime * result + ((score == null) ? 0 : score.hashCode());
 		result = prime * result + ((userDescription == null) ? 0 : userDescription.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		return result;
 	}
 
@@ -105,6 +119,11 @@ public class HiScore implements Serializable {
 				return false;
 		} else if (!userName.equals(other.userName))
 			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
 		return true;
 	}
 
@@ -112,6 +131,6 @@ public class HiScore implements Serializable {
 	@Override
 	public String toString() {
 		return "HiScore [id=" + id + ", score=" + score + ", userName=" + userName + ", userDescription="
-				+ userDescription + "]";
+				+ userDescription + "date" + new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date) + "]";
 	}
 }

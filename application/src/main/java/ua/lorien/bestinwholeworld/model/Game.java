@@ -99,6 +99,10 @@ public class Game implements Serializable {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Comment addComment(Comment comment) {
 		if (comment != null) {
 			comments.add(comment);

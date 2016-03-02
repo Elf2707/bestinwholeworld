@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: ua.lorien.bestinwholeworld.services.UserServicesUTest
--------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.16 sec - in ua.lorien.bestinwholeworld.services.UserServicesUTest

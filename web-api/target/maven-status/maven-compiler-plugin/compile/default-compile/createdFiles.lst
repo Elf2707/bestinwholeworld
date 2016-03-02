@@ -1,3 +1,6 @@
+ua\lorien\bestinholeworld\webapi\commonutils\json\typeadapter\date\JsonDateDeserializer.class
 ua\lorien\bestinwholeworld\webapi\controller\GameController.class
 ua\lorien\bestinholeworld\webapi\commonutils\json\JsonConverter.class
+ua\lorien\bestinholeworld\webapi\commonutils\json\typeadapter\date\JsonDateSerializer.class
+ua\lorien\bestinwholeworld\webapi\controller\MainController.class
 ua\lorien\bestinwholeworld\Application.class

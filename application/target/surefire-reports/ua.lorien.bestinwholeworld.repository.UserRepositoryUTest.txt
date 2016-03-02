@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: ua.lorien.bestinwholeworld.repository.UserRepositoryUTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.863 sec - in ua.lorien.bestinwholeworld.repository.UserRepositoryUTest

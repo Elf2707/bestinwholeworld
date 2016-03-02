@@ -5,7 +5,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -37,9 +39,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.util.NestedServletException;
 
+import ua.lorien.bestinholeworld.webapi.commonutils.json.JsonConverter;
 import ua.lorien.bestinwholeworld.Application;
 import ua.lorien.bestinwholeworld.config.AppConfig;
+import ua.lorien.bestinwholeworld.game.exception.GameNotFoundException;
 import ua.lorien.bestinwholeworld.model.Game;
 import ua.lorien.bestinwholeworld.service.GameService;
 
@@ -145,16 +150,80 @@ public class GameControllerUTest {
 		gameService.add(game);
 
 		Long id = game.getId();
+
+		assertThat(game.getDescription(), is(equalTo("It's a nice game about cool green bird")));
+
+		// Change game description
+		game.setDescription("Bla bla bla description");
+
 		try {
 
 			HttpHeaders requestHeaders = new HttpHeaders();
 			requestHeaders.add("Content-Type", "application/json; charset=utf-8");
-			mockMvc.perform(put("/api/games/" + id).headers(requestHeaders).content(simpleGameWithNullNameInJson()))
-					.andExpect(status().isBadRequest());
+			mockMvc.perform(
+					put("/api/games/" + id).headers(requestHeaders).content(JsonConverter.objToJsonString(game)))
+					.andExpect(status().isOk());
+
+			game = gameService.findById(id);
+			assertThat(game.getDescription(), is(equalTo("Bla bla bla description")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		game.setName("New Name");
+	}
 
+	@Test(expected = NestedServletException.class)
+	public void updateGameWithNameOfAnotherGame() throws Exception {
+		Game game = zombieBird();
+		Game anotherGame = firstGame();
+		gameService.add(game);
+		gameService.add(anotherGame);
+
+		assertThat(game.getId(), not(equalTo(anotherGame.getId())));
+		game.setName(anotherGame.getName());
+
+			HttpHeaders requestHeaders = new HttpHeaders();
+			requestHeaders.add("Content-Type", "application/json; charset=utf-8");
+			mockMvc.perform(put("/api/games/" + game.getId()).headers(requestHeaders)
+					.content(JsonConverter.objToJsonString(game))).andExpect(status().isOk());
+
+			fail("You should'nt get here because of exception");
+	}
+	
+	@Test
+	public void deleteExistingGame() throws Exception {
+		Game game = zombieBird();
+		Game anotherGame = firstGame();
+		gameService.add(game);
+		gameService.add(anotherGame);
+
+		List<Game> games = gameService.findAll();
+		assertThat(games, hasSize(2));
+		
+		HttpHeaders requestHeaders = new HttpHeaders();
+		requestHeaders.add("Content-Type", "application/json; charset=utf-8");
+		mockMvc.perform(delete("/api/games/" + game.getId()).headers(requestHeaders)).andExpect(status().isOk());
+		
+		games = gameService.findAll();
+		
+		assertThat(games, hasSize(1));
+		assertThat(games.get(0).getName(), is(equalTo(anotherGame.getName())));
+	}
+	
+	@Test(expected = GameNotFoundException.class)
+	public void deleteNotExistingGame() throws Throwable {
+		Game game = zombieBird();
+		gameService.add(game);
+
+		List<Game> games = gameService.findAll();
+		assertThat(games, hasSize(1));
+		
+		try{
+			HttpHeaders requestHeaders = new HttpHeaders();
+			requestHeaders.add("Content-Type", "application/json; charset=utf-8");
+			mockMvc.perform(delete("/api/games/" + game.getId() + 11111L).headers(requestHeaders)).andExpect(status().isOk());
+			fail("You should'nt get here because of GameNotFoundException exception");
+		}catch( Exception exp ){
+			throw exp.getCause();
+		}
 	}
 }

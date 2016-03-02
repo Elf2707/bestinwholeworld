@@ -56,7 +56,7 @@
 				<version>3.5</version><!--$NO-MVN-MAN-VER$ -->
 				<configuration>
 					<fork>true</fork>
-					<executable>C:\JDKS\jdk1.8.0_73\bin\javac.exe</executable>
+					<executable>C:\JDKS\JDK851\bin\javac.exe</executable>
 				</configuration>
 			</plugin>
 		</plugins>

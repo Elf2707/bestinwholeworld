@@ -1,6 +1,7 @@
 package ua.lorien.bestinwholeworld.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -83,7 +84,7 @@ public class Comment implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", text=" + text + ", date=" + date + "]";
+		return "Comment [id=" + id + ", text=" + text + ", date=" + new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date) + "]";
 	}
 
 }

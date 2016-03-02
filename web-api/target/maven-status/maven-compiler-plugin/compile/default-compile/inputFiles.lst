@@ -1,4 +1,6 @@
-D:\Elf\workspace\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinwholeworld\Application.java
-D:\Elf\workspace\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinwholeworld\webapi\controller\GameController.java
-D:\Elf\workspace\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinholeworld\webapi\commonutils\json\JsonConverter.java
-D:\Elf\workspace\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinwholeworld\webapi\controller\MainController.java
+C:\Users\Elf\Documents\workspace-sts\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinwholeworld\webapi\controller\GameController.java
+C:\Users\Elf\Documents\workspace-sts\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinholeworld\webapi\commonutils\json\typeadapter\date\JsonDateSerializer.java
+C:\Users\Elf\Documents\workspace-sts\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinwholeworld\webapi\controller\MainController.java
+C:\Users\Elf\Documents\workspace-sts\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinholeworld\webapi\commonutils\json\JsonConverter.java
+C:\Users\Elf\Documents\workspace-sts\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinholeworld\webapi\commonutils\json\typeadapter\date\JsonDateDeserializer.java
+C:\Users\Elf\Documents\workspace-sts\bestinwholeworld\web-api\src\main\java\ua\lorien\bestinwholeworld\Application.java

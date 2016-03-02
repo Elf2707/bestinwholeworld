@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS hiscore
  user_name VARCHAR(200),
  game_id INT,
  user_description VARCHAR(300),
+ date_of_score DATE,
  score BIGINT,
  FOREIGN KEY (game_id) REFERENCES game(id) ON DELETE CASCADE ON UPDATE CASCADE);
 
